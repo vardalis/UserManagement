@@ -1,0 +1,8 @@
+{
+  "app": {
+    "home": "Αρχική"
+  },
+  "user-management": {
+    "create-user": "Δημιουργία χρήστη"
+  }
+}

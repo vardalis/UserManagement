@@ -1,0 +1,105 @@
+<h2>Create User</h2>
+
+<div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
+  <ul>
+    <li *ngFor="let error of errors">
+      {{ error }}
+    </li>
+  </ul>
+</div>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="firstName">First name</label>
+    <input id="firstName" class="form-control" type="text" formControlName="firstName" required />
+  </div>
+
+  <div *ngIf="firstName.invalid && submitAttempted"
+       class="alert alert-danger">
+    <div *ngIf="firstName.errors.required">
+      First name is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last name</label>
+    <input id="lastName" class="form-control" type="text" formControlName="lastName" required />
+  </div>
+  <div *ngIf="lastName.invalid && submitAttempted"
+       class="alert alert-danger">
+    <div *ngIf="lastName.errors.required">
+      Last name is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" class="form-control" type="email" formControlName="email" email required>
+  </div>
+  <div *ngIf="email.invalid && submitAttempted"
+       class="alert alert-danger">
+    <div *ngIf="email.errors.required">
+      Email is required.
+    </div>
+    <div *ngIf="email.errors.email">
+      Field does not correspond to an email address.
+    </div>
+    <div *ngIf="email.errors.inUse">
+      Email already in use.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" class="form-control" type="password" formControlName="password" required>
+  </div>
+
+  <div *ngIf="password.invalid && submitAttempted"
+       class="alert alert-danger">
+    <div *ngIf="password.errors.required">
+      Password is required.
+    </div>
+    <div *ngIf="password.errors.minlength">
+      Password must be at least 6 characters.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm password</label>
+    <input id="confirmPassword" class="form-control" type="password" formControlName="confirmPassword" required>
+  </div>
+
+  <div *ngIf="confirmPassword.invalid && submitAttempted"
+       class="alert alert-danger">
+    <div *ngIf="confirmPassword.errors.required">
+      Confirm password is required.
+    </div>
+  </div>
+
+  <div *ngIf="userForm.errors?.samePassword === false && submitAttempted"
+       class="cross-validation-error-message alert alert-danger">
+    Passwords must match!
+  </div>
+
+  <div class="form-group">
+    <label for="role">Role</label>
+    <select id="role" class="form-control" formControlName="role" required>
+      <option *ngFor="let role of roles$ | async" [ngValue]="role">
+        {{role.description}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="approved" formControlName="approved">
+    <label class="form-check-label" for="approved">Account approved</label>
+  </div>
+
+  <!-- <button type="submit" [disabled]="!userForm.valid">Submit</button> -->
+  <button type="submit" class="btn btn-outline-primary">Submit</button>&nbsp;
+  <button type="button" class="btn btn-outline-primary" (click)="onCancel()">Cancel</button>
+</form>
+
+<p>
+  Form Status: {{ userForm.status }}
+</p>

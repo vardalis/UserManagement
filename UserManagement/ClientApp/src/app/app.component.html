@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> {{ 'app.home' | translate }} </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/users/admin-view" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Admins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/users/applicant-view" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Applicants</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Users</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      <ng-container *ngIf="accountService.isAuthenticated !== true">
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/account/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/account/register" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/account/forgot-password" routerLinkActive="active">Forgot password</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="accountService.isAuthenticated === true">
+        <li class="nav-item">
+          <span class="navbar-text">
+            Hi {{ accountService.role + ' ' + accountService.email }}!
+          </span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="/account/signed-out" routerLinkActive="active">Sign Out</a>
+        </li>
+      </ng-container>
+      <li class="nav-item">
+        <select class="custom-select" (change)="onChange($event.target.value)">
+          <option value="el" selected>Ελληνικά</option>
+          <option value="en">English</option>
+        </select>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="offset-sm-1 col-sm-11">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<notifier-container></notifier-container>
+
+

@@ -1,0 +1,84 @@
+<h2>Users List</h2>
+
+<a routerLink="/users/user-create">{{ 'user-management.create-user' | translate }}</a>
+
+<form class="form-inline" [formGroup]="searchForm">
+  <input type="text" class="form-control" placeholder="Last Name or Email" formControlName="searchString" />
+
+  <button type="button" class="btn btn-outline-primary" (click)="onSearch()">Search</button>
+  <button type="button" class="btn btn-outline-primary" (click)="onSearchReset()">Reset</button>
+</form>
+<br />
+<!--
+
+<input #searchString (keyup.enter)="onSearch(searchString.value)" formControlName="" />
+<button (click)="onSearch(searchString.value)">Search</button>
+<button (click)="onSearchReset()">Reset</button>
+
+-->
+
+<table class="table">
+  <thead>
+    <tr>
+      <!--<th>
+        Id
+      </th>-->
+      <th scope="col">
+        <a [routerLink]="" (click)="onHeaderClick('Fname')">
+          First Name
+          <span *ngIf="sortOrder=='Fname'">&#8897;</span>
+          <span *ngIf="sortOrder=='Fname_desc'">&#8896;</span>
+        </a>
+      </th>
+      <th scope="col">
+        <a [routerLink]="" (click)="onHeaderClick('Lname')">
+          Last Name
+          <span *ngIf="sortOrder=='Lname'">&#8897;</span>
+          <span *ngIf="sortOrder=='Lname_desc'">&#8896;</span>
+        </a>
+      </th>
+      <th scope="col">
+        <a [routerLink]="" (click)="onHeaderClick('Email')">
+          Email
+          <span *ngIf="sortOrder=='Email'">&#8897;</span>
+          <span *ngIf="sortOrder=='Email_desc'">&#8896;</span>
+        </a>
+      </th>
+      <th scope="col">
+        Role
+      </th>
+      <th scope="col">
+        <a [routerLink]="" (click)="onHeaderClick('Approved')">
+          Approved
+          <span *ngIf="sortOrder=='Approved'">&#8897;</span>
+          <span *ngIf="sortOrder=='Approved_desc'">&#8896;</span>
+        </a>
+      </th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userPage">
+      <!--<td>{{ user.id }}</td>-->
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <div class="form-check">
+          <input type="checkbox" id="approved" [checked]="user.approved" disabled>
+        </div>
+      </td>
+      <td><a [routerLink]="['/users/user-delete', user.id]">Delete</a></td>
+      <td><a [routerLink]="['/users/user-edit', user.id]">Edit</a></td>
+      <td><a [routerLink]="['/users/password-change', user.id]">Change Password</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!--<pager [items]="userList" (changePage)="onChangePage($event)"></pager>-->
+
+<pager [totalItems]="totalUsers" [initialPage]="page" [pageSize]="pageSize" (changePage)="onChangePage($event)"></pager>
+

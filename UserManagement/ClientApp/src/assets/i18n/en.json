@@ -1,0 +1,8 @@
+{
+  "app": {
+    "home": "Home"
+  },
+  "user-management": {
+    "create-user": "Create user"
+  }
+}
